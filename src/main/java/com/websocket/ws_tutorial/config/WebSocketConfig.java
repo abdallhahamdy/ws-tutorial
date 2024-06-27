@@ -1,5 +1,6 @@
 package com.websocket.ws_tutorial.config;
 
+import com.websocket.ws_tutorial.handler.UserHandshakeHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -17,7 +18,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // STOMP: exchange and transfer data.
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/our-websocket").withSockJS();
+        registry.addEndpoint("/our-websocket")
+                .setHandshakeHandler(new UserHandshakeHandler())
+                .withSockJS();
     }
 
     @Override
